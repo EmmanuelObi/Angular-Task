@@ -41,9 +41,9 @@ function SearchContributors({
               aria-label="Search"
             />
           </form>
-          <div class="dropdown text-center">
+          <div className="dropdown text-center">
             <a
-              class="dropdown-toggle"
+              className="dropdown-toggle"
               href="!#"
               id="Dropdown"
               role="button"
@@ -53,9 +53,9 @@ function SearchContributors({
             >
               Filters
             </a>
-            <div class="dropdown-menu" aria-labelledby="Dropdown">
+            <div className="dropdown-menu" aria-labelledby="Dropdown">
               <a
-                class="dropdown-item"
+                className="dropdown-item"
                 href="!#"
                 onClick={() =>
                   setContributorInfo((a, b) => b.followers - a.followers)
@@ -63,7 +63,11 @@ function SearchContributors({
               >
                 Most Followers
               </a>
-              <a class="dropdown-item" href="!#" onClick={sortByPublications}>
+              <a
+                className="dropdown-item"
+                href="!#"
+                onClick={sortByPublications}
+              >
                 Most Publications
               </a>
             </div>
