@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,100&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  transition: 300ms ease-out;
+}
+body {
+  width: 100%;
+  height: 100%;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+a {
+  text-decoration: none !important;
+}
+.container-fluid {
+  padding: 0;
+}
+.navbar {
+  height: 10vh;
+  background: #0071bc !important;
+}
+
+.navbar .navbar-brand {
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 54px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #fff;
+}
+.navbar .navbar-brand:hover {
+  color: #fff;
+}
+.navbar ul li {
+  margin-right: 15%;
+}
+.navbar ul li:hover {
+  border-bottom: 1px solid #fff;
+}
+.navbar ul li a {
+  color: #fff !important;
+}
+.navbar form input {
+  background: #0071bc;
+  border: 2px solid #fff;
+  color: black;
+  border-radius: 16px !important;
+}
+.navbar form input::placeholder {
+  color: #fff;
+}
+.container-fluid.empty {
+  height: 20vh;
+  background: #4d4d4d;
+}
+.container-fluid.empty.bg-blue {
+  background: #29abe2;
+  height: 5vh;
+}
+.container-fluid.search {
+  background: #e6e6e6;
+  /* height: 100vh; */
+}
+/* .container.search {
+  
+} */
+.loading {
+  margin: 0;
+  width: 100%;
+  padding: 0;
+}
+.loading .circle {
+  height: 200px;
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 25vh;
+  border: 4px solid #ccc;
+  border-top-color: cornflowerblue;
+  border-radius: 50%;
+  animation: roller infinite 0.9s linear;
+}
+@keyframes roller {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container.search form input {
+  margin: 1.5rem auto;
+  background: #e6e6e6;
+  border-radius: 8px;
+  border: 1px solid #1a1a1a;
+  height: 3rem;
+  width: 30%;
+}
+.container.search .dropdown {
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.container.search .dropdown a {
+  color: black;
+}
+.container.search .results {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 5vh auto;
+}
+.results .box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 30%;
+  margin: 5vh auto;
+  height: 300px;
+  background-color: #fff;
+  border-radius: 17px;
+}
+.results .box div.image,
+.results .box div img {
+  position: absolute;
+
+  top: -5%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  /* background-color: black; */
+}
+.results .box div img {
+  left: -2px;
+  width: 150px;
+  border: 5px solid #e6e6e6;
+}
+.results .box .name {
+  position: absolute;
+  top: 50%;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.results .box .social {
+  position: absolute;
+  top: 65%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 80%;
+}
+.social span.red {
+  color: red;
+}
+.social span.blue {
+  color: rgb(39, 148, 216);
+}
+.social span.green {
+  color: green;
+}
+.results .box a {
+  position: absolute;
+  bottom: 10%;
+  width: 50%;
+  background: #0071bc;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  padding: 5px;
+}
+.navigation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+}
+.navigation .pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 20%;
+}
+.navigation .pagination .page-item a {
+  background: #666666;
+  color: #fff;
+}
+.navigation .pagination .page-item a:hover {
+  background: #0071bc;
+}
+
+@media only screen and (max-width: 770px) {
+  .navbar-nav {
+    background-color: #bcc3c7;
+    width: 100%;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+  }
+  .collapse .form-inline {
+    visibility: hidden;
+  }
+
+  .navbar ul li a {
+    color: #0071bc !important;
+  }
+}
+@media only screen and (max-width: 430px) {
+  .container.search form input {
+    width: 50%;
+  }
+  .container.search .results {
+    flex-wrap: unset;
+    flex-direction: column;
+  }
+  .results .box {
+    width: 80%;
+  }
+}
