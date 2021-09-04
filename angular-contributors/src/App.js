@@ -1,91 +1,41 @@
-import { useState, useEffect} from "react";
-import axios from 'axios';
-import Navbar from "./components/Navbar.js";
-import SearchContributors from "./components/SearchContributors.js";
+import React, { useState } from 'react'
+import Navbar from './components/Navbar';
+import Contributor from './components/Contributor';
+import RepoDetails from './components/RepoDetails';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import SearchContributors from './components/SearchContributors';
+import useFetch from './Hooks/useFetch';
 
-function App() {
+const App = () => {
+  // const {data: repos, loading} = useFetch('https://api.github.com/users/angular/repos');
 
-  const [searchField, setSearchField] = useState("")
-  let [contributors, setContributors] = useState([])
-  let [contributorInfo, setcontributorInfo ] = useState([])
-  let [repos, setRepos] = useState([])
-  const [loading, setLoading] = useState(false) 
-  const [currentPage, setcurrentPage] = useState(1)
-  const [contributorsPerPage] = useState(12)
- 
+  let {data: contributors, loading} = useFetch('https://api.github.com/repos/angular/angular/contributors');
+  const [searchField, setSearchField] = useState(""); 
 
-  
-  useEffect(() => {
-
-  
-      const fetchData = async () => {
-        setLoading(true)
-        let contributorUrl;
-        let userUrl;
-        let i = 1;
-        const repoUrl = 'https://api.github.com/orgs/angular/repos'
-        const repoResponse = await axios.get(repoUrl)
-
-        for (i; i < repoResponse.data.length; i++) {
-          contributorUrl = `https://api.github.com/repos/${repoResponse.data[i].full_name}/contributors`
-          const contributorResponse = await axios.get(contributorUrl)
-         
-          for (let j = 0; j < contributorResponse.data.length; j++) {
-            setContributors(c => [...c, contributorResponse.data[j]])
-          }
-        }
-        // Remove Duplicate data from contributors array
-        setContributors(c => Array.from(new Set(c.map(cList => cList.id))).map(id => {
-          return c.find(cList => cList.id === id)
-        }))
-
-        let k = 0;
-        do {
-           userUrl = `https://api.github.com/users/${contributors[k].['login']}`
-            const userResponse = await axios.get(userUrl)
-            setcontributorInfo(c => [...c,userResponse.data])
-          k++
-        }
-        while (k < contributors.length)
-        
-        setRepos(repoResponse.data)
-        
-        setLoading(false)
-      }
-
-      fetchData()
-     
-  },[])
-  
-  // Get current contributors (pagination)
-  const indexOfLastContributor = currentPage * contributorsPerPage;
-  const indexOfFirstContributor = indexOfLastContributor - contributorsPerPage;
-  let currentContributor = contributorInfo.slice(indexOfFirstContributor, indexOfLastContributor);
-  const totalContributors = contributorInfo.length;
-
-  
-  
-  // handle search bar
-  
   const handleChange = (e) => {
     e.preventDefault()
     setSearchField(e.target.value)
   }
-  if (searchField.length > 0) {
-    currentContributor = currentContributor.filter((contributor) => {
-      return contributor.name.toLowerCase().match(searchField)
-    })
-  }
-  
-
-// Change Page (pagination)
-  const paginate = (pageNumber) => setcurrentPage(pageNumber)
 
   return (
-    <div className="App">
-      <Navbar searchField={searchField} handleChange={handleChange} />
-      <SearchContributors contributors={contributors} setContributorInfo={setcontributorInfo} contributorInfo={contributorInfo} totalContributors={totalContributors} contributorsPerPage={contributorsPerPage} currentContributor={currentContributor} loading={loading} searchField={searchField} setSearchField={setSearchField} paginate={paginate} handleChange={handleChange}  />
-    </div>
-  );
+    <Router>
+      <div>
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <SearchContributors loading= {loading} contributors={contributors} searchField={searchField} handleChange={handleChange}/>
+          </Route>
+          <Route path="/contributorinfo/:id">
+            <Contributor />
+          </Route>
+          <Route path="/repositorydetails/:id1/:id2">
+            <RepoDetails />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  )
 }
-export default App;
+
+export default App
+

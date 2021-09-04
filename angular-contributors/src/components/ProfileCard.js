@@ -1,29 +1,34 @@
-const ProfileCard = ({ contributor, contributors, key, check }) => {
+import React from 'react';
+import useFetch from '../Hooks/useFetch';
+import Loading from './Loading';
+import {Link} from 'react-router-dom'
+
+const ProfileCard = (props) => {
+  const {login , contributions} = props.data;
+  // const searchField = props.searchField;
+  const {data, loading} = useFetch(`https://api.github.com/users/${login}`);
+
   return (
     <>
-      <div className="box">
-        <div className="image">
-          <img src={contributor.avatar_url} alt="" />
-        </div>
-        <p className="name">{contributor.name}</p>
-        <div className="social">
-          <span className="red">
-            <i className="far fa-heart"></i>&nbsp;
-            {}
-          </span>
-          <span className="blue">
-            <i className="fab fa-telegram-plane"></i>&nbsp;
-            {contributor.public_repos + contributor.public_gists}
-          </span>
-          <span className="green">
-            <i className="fas fa-user"></i>&nbsp; {contributor.followers}
-          </span>
-        </div>
-        <a href="!#" className="button">
-          Connect
-        </a>
-      </div>
-    </>
+      {loading && <Loading />}
+      {data && 
+          <div className="box">
+            <div className="image">
+              <img src={data.avatar_url} alt="" />
+            </div>
+            <p className="name">{data.name}</p>
+            <div className="social">
+              <span className="red"><i className="far fa-heart"></i>&nbsp;{data.public_repos + data.public_gists}</span>
+              <span className="blue"
+                ><i className="fab fa-telegram-plane"></i>&nbsp;{contributions}</span
+              >
+              <span className="green"><i className="fas fa-user"></i>&nbsp;{data.followers}</span>
+            </div>
+            <Link to={`/contributorinfo/${login}`} className="button">Connect</Link>
+          </div>
+      }
+
+  </>
   );
 };
 

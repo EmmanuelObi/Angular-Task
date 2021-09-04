@@ -1,5 +1,6 @@
 const Navbar = () => {
   return (
+    <>
     <div className="container-fluid">
       <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <a className="navbar-brand" href="!#">
@@ -47,6 +48,7 @@ const Navbar = () => {
         </div>
       </nav>
     </div>
+    </>
   );
 };
 
