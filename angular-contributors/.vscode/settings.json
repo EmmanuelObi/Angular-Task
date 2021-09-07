@@ -1,6 +1,10 @@
 {
     "eslint.codeAction.showDocumentation": {
-
         "enable": true
-    }
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "prettier.tabWidth": 4,
+    "prettier.useTabs": true
 }

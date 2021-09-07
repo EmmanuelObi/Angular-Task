@@ -1,27 +1,37 @@
-import React from 'react'
+import { React, useState } from "react";
 // import {Link} from 'react-router-dom'
-import useFetch from '../Hooks/useFetch'
-import Loading from './Loading'
-import Pagination from './Pagination'
-import ContributorRepos from './ContributorRepos'
+import useFetch from "../Hooks/useFetch";
+import Loading from "./Loading";
+import Pagination from "./Pagination";
+import ContributorRepos from "./ContributorRepos";
+import useGet from "../Hooks/useGet";
 
-const ContributorRepoInfo = ({id}) => {
+const ContributorRepoInfo = ({ id }) => {
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState();
 
-    const {data: repos, loading} = useFetch(`https://api.github.com/users/${id}/repos`)
+	const errorCallback = (error) => setError(error);
+	const loadingCallback = (loading) => setLoading(loading);
 
-    return (
-        <>
-            {loading && <Loading />}
-            { repos &&
-            <Pagination
-                data={repos}
-                ShowComponent={ContributorRepos}
-                pageLimit={5}
-                dataLimit={3}
-              />
-}
-        </>
-    )
-}
+	const { data: repos } = useGet(
+		`https://api.github.com/users/${id}/repos`,
+		loadingCallback,
+		errorCallback
+	);
 
-export default ContributorRepoInfo
+	return (
+		<>
+			{loading && <Loading />}
+			{repos && (
+				<Pagination
+					data={repos}
+					ShowComponent={ContributorRepos}
+					pageLimit={5}
+					dataLimit={3}
+				/>
+			)}
+		</>
+	);
+};
+
+export default ContributorRepoInfo;
