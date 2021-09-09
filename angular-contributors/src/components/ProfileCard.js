@@ -1,5 +1,4 @@
-import { React, useEffect, useState } from "react";
-// import useFetch from "../Hooks/useFetch";
+import { React, useState } from "react";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import useGet from "../Hooks/useGet";
@@ -18,48 +17,10 @@ const ProfileCard = (props) => {
 		errorCallback
 	);
 
-	// const errorCallback = (error) => setError(error);
-	// const loadingCallback = (loading) => setLoading(loading);
-	// const { sendRequest } = useFetch();
-	// const [contributorDetails, setContributorDetails] = useState([]);
-
-	// const setContributorsDetailsCallback = (data) => {
-	// 	setContributorDetails((state) => [...state, data]);
-	// };
-
-	// const responseCallback = (data = []) => {
-	// 	if (data.length === 0) {
-	// 		return;
-	// 	}
-	// 	for (const element of data) {
-	// 		const { login } = element;
-	// 		sendRequest(
-	// 			{
-	// 				url: `https://api.github.com/users/${login}`,
-	// 				method: "get",
-	// 			},
-	// 			setContributorsDetailsCallback,
-	// 			loadingCallback,
-	// 			errorCallback
-	// 		);
-	// 	}
-	// };
-
-	// useEffect(() => {
-	// 	sendRequest(
-	// 		{
-	// 			url: `https://api.github.com/users/${login}`,
-	// 			method: "get",
-	// 		},
-	// 		responseCallback,
-	// 		loadingCallback,
-	// 		errorCallback
-	// 	);
-	// }, [sendRequest]);
-
 	return (
 		<>
 			{loading && <Loading />}
+			{error && <div>Error. Try again Later....</div>}
 			{data && (
 				<>
 					<div className="box">

@@ -8,13 +8,14 @@ const SearchContributors = ({
 	contributors,
 	searchField,
 	handleChange,
-	contributorDetails,
 }) => {
-	// console.log(contributors);
+	const handleSort = (params) => {
+		contributors.sort((a, b) => {
+			return b[params] - a[params];
+		});
+	};
 	return (
 		<div>
-			{/* <div className="container-fluid empty bg-black"></div>
-    <div className="container-fluid empty bg-blue"></div> */}
 			<div className="container-fluid search">
 				<div className="container search">
 					<form className="form-inline mx-auto">
@@ -43,15 +44,12 @@ const SearchContributors = ({
 							className="dropdown-menu"
 							aria-labelledby="Dropdown"
 						>
-							<a className="dropdown-item" href="/">
+							<button
+								onClick={() => handleSort("contributions")}
+								className="dropdown-item"
+							>
 								Most Contributions
-							</a>
-							<a className="dropdown-item" href="/">
-								Most Followers
-							</a>
-							<a className="dropdown-item" href="/">
-								Most Publications
-							</a>
+							</button>
 						</div>
 					</div>
 					<div className="results">

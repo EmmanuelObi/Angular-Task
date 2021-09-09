@@ -5,18 +5,15 @@ import RepoDetails from "./components/RepoDetails";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SearchContributors from "./components/SearchContributors";
 import useFetch from "./Hooks/useFetch";
-// import Loading from './components/Loading'
+import Loading from "./components/Loading";
 
 const App = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState();
 	const [contributors, setContributors] = useState([]);
 	const [repos, setRepos] = useState([]);
+	const [searchField, setSearchField] = useState("");
 	const { sendRequest } = useFetch();
-
-	// const {data: repos, loading} = useFetch('https://api.github.com/users/angular/repos');
-
-	// let {data: contributors, loading} = useFetch('https://api.github.com/repos/angular/angular/contributors');
 
 	const errorCallback = (error) => setError(error);
 	const loadingCallback = (loading) => setLoading(loading);
@@ -53,35 +50,36 @@ const App = () => {
 			errorCallback
 		);
 	}, [sendRequest]);
-	// console.log(repos);
-	// console.log(contributors);
-
-	// const uniqueContributors = Array.from(
-	// 	new Set(contributors.map((a) => a.id))
-	// ).map((id) => {
-	// 	return contributors.find((a) => a.id === id);
-	// });
-
-	// const loading
-	const [searchField, setSearchField] = useState("");
 
 	const handleChange = (e) => {
 		e.preventDefault();
 		setSearchField(e.target.value);
 	};
+
 	return (
 		<Router>
 			<div>
 				<Navbar />
 				<Switch>
 					<Route exact path="/">
+						{loading && <Loading />}
+
 						<SearchContributors
 							loading={loading}
-							error={error}
 							contributors={contributors}
 							searchField={searchField}
 							handleChange={handleChange}
 						/>
+						{error && (
+							<div
+								style={{
+									textAlign: "center",
+									marginTop: "50px",
+								}}
+							>
+								Error. Try again Later....
+							</div>
+						)}
 					</Route>
 					<Route path="/contributorinfo/:id">
 						<Contributor />
